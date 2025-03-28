@@ -53,4 +53,4 @@ jobs:
           app-name: 'Team13-Ebook'
           slot-name: 'Production'
           package: '*.war'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2143409CED7B4EA29221D75127DC9A6D }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9CEE3753C7354CF7B8315C539A7E0305 }}
