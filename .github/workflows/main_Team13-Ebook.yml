@@ -54,3 +54,4 @@ jobs:
           slot-name: 'Production'
           package: '*.jar'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BDC34DCBCDF54F91A81EDF7B23A26C81 }}
+          verbose: true
