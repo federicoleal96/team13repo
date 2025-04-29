@@ -30,7 +30,7 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: java-app
+          name: ebook-1.0.jar
           path: '${{ github.workspace }}/target/*.war'
 
   deploy:
