@@ -52,6 +52,7 @@ jobs:
         with:
           app-name: 'Team13-Ebook'
           slot-name: 'Production'
-          package: '*.jar'
+          package: 'ebook-1.0.jar'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BDC34DCBCDF54F91A81EDF7B23A26C81 }}
-          verbose: true
+        env:
+          AZURE_DEPLOYMENT_VERBOSE: true
