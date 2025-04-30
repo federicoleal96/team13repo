@@ -57,6 +57,7 @@ jobs:
             az account show --verbose
             echo "Account info:"
 
+
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
