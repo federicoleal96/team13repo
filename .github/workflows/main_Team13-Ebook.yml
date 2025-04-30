@@ -49,7 +49,7 @@ jobs:
       - name: Login to Azure
         uses: azure/CLI@v1
         with:
-          azcliversion: latest
+          azcliversion: 2.37.0
           inlineScript: |
             az login --username ${{ secrets.AZURE_USERNAME }} --password ${{ secrets.AZURE_PASSWORD }}
             az account show
