@@ -47,7 +47,7 @@ jobs:
           name: ebook-1.0.jar
 
       - name: Login to Azure
-        uses: azure/CLI@v1
+        uses: Azure/CLI@1
         with:
           azcliversion: latest
           inlineScript: |
