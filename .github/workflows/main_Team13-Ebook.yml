@@ -51,8 +51,11 @@ jobs:
         with:
           azcliversion: 2.37.0
           inlineScript: |
-            az login --username ${{ secrets.AZURE_USERNAME }} --password ${{ secrets.AZURE_PASSWORD }}
-            az account show
+            echo "Logging in to Azure..."
+            az login --username ${{ secrets.AZURE_USERNAME }} --password ${{ secrets.AZURE_PASSWORD }} --verbose
+            echo "Login successful"
+            az account show --verbose
+            echo "Account info:"
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
