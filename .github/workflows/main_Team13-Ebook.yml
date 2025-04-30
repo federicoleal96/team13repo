@@ -52,7 +52,7 @@ jobs:
           azcliversion: 2.37.0
           inlineScript: |
             echo "Logging in to Azure..."
-            az login --tenant ${{ secrets.AZURE_TENANT_ID }} --username ${{ secrets.AZURE_USERNAME }}
+            az login --username ${{ secrets.AZURE_USERNAME }} --password ${{ secrets.AZURE_PASSWORD }} --verbose
             echo "Login successful"
             az account show --verbose
             echo "Account info:"
