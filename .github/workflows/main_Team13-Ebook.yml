@@ -50,11 +50,10 @@ jobs:
         uses: azure/CLI@v1
         with:
           azcliversion: latest
-          script: |
+          inlineScript: |
             az login --username ${{ secrets.AZURE_USERNAME }} --password ${{ secrets.AZURE_PASSWORD }}
             az account show
 
-          inlineScript: ''
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
