@@ -49,14 +49,13 @@ jobs:
       - name: Login to Azure
         uses: azure/cli@v1
         with:
-          azcliversion: 2.37.0
+          azcliversion: latest
           inlineScript: |
             echo "Logging in to Azure..."
-            az login --tenant ${{ secrets.AZURE_TENANT_ID }} --username ${{ secrets.AZURE_USERNAME }} --use-device-code
+            az login --username ${{ secrets.AZURE_USERNAME }} --password ${{ secrets.AZURE_PASSWORD }} --verbose
             echo "Login successful"
             az account show --verbose
             echo "Account info:"
-
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
