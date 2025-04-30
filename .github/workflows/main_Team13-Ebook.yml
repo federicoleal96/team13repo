@@ -47,10 +47,10 @@ jobs:
           name: ebook-1.0.jar
 
       - name: Login to Azure
-      - uses: azure/login@v1
-      - with:
-      - username: ${{ secrets.AZURE_USERNAME }}
-      - password: ${{ secrets.AZURE_PASSWORD }}
+        uses: azure/login@v1
+        with:
+          username: ${{ secrets.AZURE_USERNAME }}
+          password: ${{ secrets.AZURE_PASSWORD }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
