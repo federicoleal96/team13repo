@@ -6,24 +6,26 @@ variables:
   resourceGroupName: 'Team13'
   webAppName: 'Team13-Ebook'
 
-steps:
-- task: Maven@4
-  displayName: 'Maven Build'
-  inputs:
-    mavenPomFile: 'pom.xml'
-    goals: 'clean package'
-    options: '-X'
+jobs:
+- job: build
+  steps:
+  - task: Maven@4
+    displayName: 'Maven Build'
+    inputs:
+      mavenPomFile: 'pom.xml'
+      goals: 'clean package'
+      options: '-X'
 
-- task: CopyFiles@2
-  displayName: 'Copy JAR file to staging directory'
-  inputs:
-    Contents: '**/*.jar'
-    TargetFolder: '$(build.artifactstagingdirectory)'
+  - task: CopyFiles@2
+    displayName: 'Copy JAR file to staging directory'
+    inputs:
+      Contents: '**/*.jar'
+      TargetFolder: '$(build.artifactstagingdirectory)'
 
-- task: AzureRmWebAppDeployment@4
-  displayName: 'Azure App Service Deployment'
-  inputs:
-    ConnectionType: 'AzureRM'
-    WebAppName: '$(webAppName)'
-    ResourceGroupName: '$(resourceGroupName)'
-    Package: '$(build.artifactstagingdirectory)/*.jar'
+  - task: AzureRmWebAppDeployment@4
+    displayName: 'Azure App Service Deployment'
+    inputs:
+      ConnectionType: 'AzureRM'
+      WebAppName: '$(webAppName)'
+      ResourceGroupName: '$(resourceGroupName)'
+      Package: '$(build.artifactstagingdirectory)/*.jar'
