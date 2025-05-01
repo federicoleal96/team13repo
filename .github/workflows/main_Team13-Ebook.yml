@@ -58,11 +58,5 @@ jobs:
             echo "Account info:"
 
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: 'Team13-Ebook'
-          slot-name: 'Production'
-          package: 'ebook-1.0.jar'
-          publish-profile: ${{ secrets.AZURE_PUBLISHING_PROFILE }}
-          clean: true
+        run: |
+          az webapp deployment slot update --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --name Team13-Ebook --slot Production --package ebook-1.0.jar
