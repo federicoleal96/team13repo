@@ -59,4 +59,4 @@ jobs:
 
       - name: Deploy to Azure Web App
         run: |
-          az webapp deployment slot update --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --name Team13-Ebook --slot Production --package ebook-1.0.jar
+          az webapp deployment update --resource-group Team13 --name Team13-Ebook --package ebook-1.0.jar
