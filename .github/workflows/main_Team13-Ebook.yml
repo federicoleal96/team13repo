@@ -46,7 +46,6 @@ jobs:
         with:
           name: ebook-1.0.jar
 
-
       - name: Login to Azure
         uses: azure/cli@v1
         with:
