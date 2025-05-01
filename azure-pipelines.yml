@@ -27,7 +27,6 @@ steps:
   displayName: 'Azure App Service Deployment'
   inputs:
     ConnectionType: 'AzureRM'
-    azureSubscription: 'Your Azure Subscription'
     webappName: '$(webAppName)'
     resourceGroupName: '$(resourceGroupName)'
     package: '$(build.artifactstagingdirectory)/*.jar'
