@@ -8,25 +8,26 @@ variables:
 
 pool:
   name: Default
-  demands:
-    agent.name -equals Agent1
 
 jobs:
 - job: build
   steps:
+  - task: PowerShell@2
+    displayName: 'Install Maven'
+    inputs:
+      targetType: 'filePath'
+      filePath: '.github/install_maven.ps1'
   - task: Maven@4
     displayName: 'Maven Build'
     inputs:
       mavenPomFile: 'pom.xml'
       goals: 'clean package'
       options: '-X'
-
   - task: CopyFiles@2
     displayName: 'Copy JAR file to staging directory'
     inputs:
       Contents: '**/*.jar'
       TargetFolder: '$(build.artifactstagingdirectory)'
-
   - task: AzureRmWebAppDeployment@4
     displayName: 'Azure App Service Deployment'
     inputs:
