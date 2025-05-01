@@ -60,9 +60,9 @@ jobs:
       - name: Extract Zip Deploy profile
         run: |
           echo "${{ secrets.AZURE_PUBLISHING_PROFILE }}" > original-profile.xml
-          cat original-profile.xml
-          grep -oP '(?s)<publishProfile.*?</publishProfile>' original-profile.xml > zip-deploy-profile.xml
-          cat zip-deploy-profile.xml
+          sed -i's/publishUrl="team13-ebook-gahhfjdwg8gwfmdx.scm.uksouth-01.azurewebsites.net:443"/publishUrl="https:\/\/team13-ebook-gahhfjdwg8gwfmdx.scm.uksouth-01.azurewebsites.net:443"/g' original-profile.xml
+          sed -i's/userName="-Ebook"/userName="$Team13-Ebook"/g' original-profile.xml
+          cat original-profile.xml > zip-deploy-profile.xml
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -71,5 +71,4 @@ jobs:
           app-name: 'Team13-Ebook'
           slot-name: 'Production'
           package: 'ebook-1.0.jar'
-          publish-profile: 'zip-deploy-profile.xml'
-          clean: true
+          publish-profile: 'zip
