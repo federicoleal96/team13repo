@@ -59,7 +59,10 @@ jobs:
 
       - name: Extract Zip Deploy profile
         run: |
-          echo "${{ secrets.AZURE_PUBLISHING_PROFILE }}" | grep -oP '(?s)<publishProfile profileName="Team13-Ebook - Zip Deploy".*?</publishProfile>' > zip-deploy-profile.xml
+          echo "${{ secrets.AZURE_PUBLISHING_PROFILE }}" > original-profile.xml
+          cat original-profile.xml
+          grep -oP '(?s)<publishProfile.*?</publishProfile>' original-profile.xml > zip-deploy-profile.xml
+          cat zip-deploy-profile.xml
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
