@@ -1,16 +1,13 @@
 trigger:
 - main
 
-pool:
-  vmImage: 'ubuntu-latest'
-
 variables:
   buildConfiguration: release
   resourceGroupName: 'Team13'
   webAppName: 'Team13-Ebook'
 
 steps:
-- task: Maven@3
+- task: Maven@4
   displayName: 'Maven Build'
   inputs:
     mavenPomFile: 'pom.xml'
@@ -27,6 +24,6 @@ steps:
   displayName: 'Azure App Service Deployment'
   inputs:
     ConnectionType: 'AzureRM'
-    webappName: '$(webAppName)'
-    resourceGroupName: '$(resourceGroupName)'
-    package: '$(build.artifactstagingdirectory)/*.jar'
+    WebAppName: '$(webAppName)'
+    ResourceGroupName: '$(resourceGroupName)'
+    Package: '$(build.artifactstagingdirectory)/*.jar'
