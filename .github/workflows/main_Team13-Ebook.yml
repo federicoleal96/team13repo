@@ -63,6 +63,7 @@ jobs:
           sed -i's/publishUrl="team13-ebook-gahhfjdwg8gwfmdx.scm.uksouth-01.azurewebsites.net:443"/publishUrl="https:\/\/team13-ebook-gahhfjdwg8gwfmdx.scm.uksouth-01.azurewebsites.net:443"/g' original-profile.xml
           sed -i's/userName="-Ebook"/userName="$Team13-Ebook"/g' original-profile.xml
           grep -oP '(?s)<publishProfile profileName="Team13-Ebook - Zip Deploy".*?</publishProfile>' original-profile.xml > zip-deploy-profile.xml
+          cat zip-deploy-profile.xml
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
