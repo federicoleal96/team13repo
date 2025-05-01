@@ -65,5 +65,4 @@ jobs:
           slot-name: 'Production'
           package: 'ebook-1.0.jar'
           publish-profile: ${{ secrets.AZURE_PUBLISHING_PROFILE }}
-          clean: true
-          overwrite: true
+          clean: false
