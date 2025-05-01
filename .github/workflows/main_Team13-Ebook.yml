@@ -71,4 +71,5 @@ jobs:
           app-name: 'Team13-Ebook'
           slot-name: 'Production'
           package: 'ebook-1.0.jar'
-          publish-profile: 'zip
+          publish-profile: 'zip-deploy-profile.xml'
+          clean: true
