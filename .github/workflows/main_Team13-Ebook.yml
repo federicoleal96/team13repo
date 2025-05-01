@@ -52,11 +52,11 @@ jobs:
           azcliversion: latest
           inlineScript: |
             echo "Logging in to Azure..."
-            az login --username ${{ secrets.AZURE_USERNAME }} --password ${{ secrets.AZURE_PASSWORD }} --verbose
+            az login --username ${{ secrets.AZURE_USERNAME }} --password ${{ secrets.AZURE_PASSWORD }} --verbose --no-config
             echo "Login successful"
             az account show --verbose
             echo "Account info:"
 
       - name: Deploy to Azure Web App
         run: |
-          az webapp deployment update --resource-group Team13 --name Team13-Ebook --package ebook-1.0.jar
+          az webapp deployment update --resource-group Team13 --name Team13-Ebook --package ebook-1.0.jar --no-config
