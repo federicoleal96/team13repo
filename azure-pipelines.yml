@@ -5,6 +5,7 @@ variables:
   buildConfiguration: release
   resourceGroupName: 'Team13'
   webAppName: 'Team13-Ebook'
+  system.debug: true
 
 pool:
   name: Default
