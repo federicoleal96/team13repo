@@ -8,8 +8,8 @@ $javaInstallerPath = "$sourcesDirectory\OpenJDK17U-jdk_x64_windows_hotspot_17.0.
 
 Invoke-WebRequest -Uri $javaDownloadUrl -OutFile $javaInstallerPath
 
-Write-Host "Installing Java..."
-Start-Process -FilePath $javaInstallerPath -ArgumentList "/qn" -Wait
+Write-Host "Installing Java silently..."
+Start-Process -FilePath msiexec.exe -ArgumentList "/i $javaInstallerPath /qn" -Wait
 
 Write-Host "Installing Maven..."
 $downloadUrl = "https://archive.apache.org/dist/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.zip"
@@ -25,9 +25,15 @@ Write-Host "Extracting Maven..."
 Expand-Archive -Path "$destinationPath\apache-maven-3.8.6-bin.zip" -DestinationPath "$destinationPath" -Force
 
 Write-Host "Setting environment variables..."
-$env:JAVA_HOME = "C:\Program Files\AdoptOpenJDK\jdk-17.0.6+10"
-$env:PATH += ";$env:JAVA_HOME\bin"
-$env:PATH += ";$destinationPath\apache-maven-3.8.6\bin"
+$javaHomePath = "C:\Program Files\AdoptOpenJDK\jdk-17.0.6+10"
+if (Test-Path $javaHomePath) {
+    $env:JAVA_HOME = $javaHomePath
+    $env:PATH += ";$env:JAVA_HOME\bin"
+    $env:PATH += ";$destinationPath\apache-maven-3.8.6\bin"
+    Write-Host "JAVA_HOME environment variable set to $env:JAVA_HOME"
+} else {
+    Write-Host "JAVA_HOME environment variable not set. Java installation failed."
+}
 
 Write-Host "Verifying Maven installation..."
 mvn --version
