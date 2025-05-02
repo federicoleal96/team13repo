@@ -15,8 +15,10 @@ Write-Host "Setting environment variables..."
 $javaHomePath = "C:\Program Files\AdoptOpenJDK\jdk-17.0.6+10"
 if (Test-Path $javaHomePath) {
     [Environment]::SetEnvironmentVariable("JAVA_HOME", $javaHomePath, "Machine")
-    [Environment]::SetEnvironmentVariable("PATH", $env:PATH + ";$javaHomePath\bin", "Machine")
+    $env:JAVA_HOME = $javaHomePath
+    $env:PATH += ";$javaHomePath\bin"
     Write-Host "JAVA_HOME environment variable set to $javaHomePath"
 } else {
     Write-Host "JAVA_HOME environment variable not set. Java installation failed."
+    exit 1
 }
