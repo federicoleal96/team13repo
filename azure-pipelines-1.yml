@@ -10,5 +10,5 @@ steps:
   inputs:
     azureSubscription: ''
     scriptType: 'powershell'
-    scriptLocation: 'inline'
+    scriptLocation: 'inlineScript'
     inlineScript: 'az account show; az webapp deployment update --resource-group Team13 --name Team13-Ebook --package $(System.DefaultWorkingDirectory)/*.jar'
