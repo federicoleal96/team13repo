@@ -5,21 +5,19 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: Maven@3
+- task: DownloadGitHubArtifact@1
+  displayName: 'Download GitHub Artifact'
   inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.11'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+    githubToken: '$(githubToken)'
+    githubRepo: 'your-github-repo'
+    githubWorkflow: 'your-github-workflow'
+    artifactName: 'ebook-1.0.jar'
 
-- task: AzureRmWebAppDeployment@4
-  displayName: 'Azure App Service Deployment'
+- task: AzureCLI@2
+  displayName: 'Azure CLI'
   inputs:
-    ConnectionType: 'AzureRM'
-    WebAppName: 'your-web-app-name'
-    ResourceGroupName: 'your-resource-group-name'
-    Package: '$(System.DefaultWorkingDirectory)/target/*.jar'
+    azureSubscription: 'your-azure-subscription-name'
+    script: |
+      az login --service-principal --username ${{ secrets.AZURE_USERNAME }} --password ${{ secrets.AZURE_PASSWORD }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+      az account show
+      az webapp deployment update --resource-group Team13 --name Team13-Ebook --package $(System.DefaultWorkingDirectory)/*.jar
