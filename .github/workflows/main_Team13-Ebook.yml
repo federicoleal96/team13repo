@@ -1,7 +1,4 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build and deploy JAR app to Azure Web App - Team13-Ebook
+name: Build and upload JAR app
 
 on:
   push:
@@ -27,37 +24,8 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
 
-
-      - name: Upload artifact for deployment job
+      - name: Upload artifact for deployment
         uses: actions/upload-artifact@v4
         with:
           name: ebook-1.0.jar
           path: '${{ github.workspace }}/target/*.jar'
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: ebook-1.0.jar
-
-      - name: Login to Azure
-        uses: azure/cli@v1
-        with:
-          azcliversion: latest
-          inlineScript: |
-            echo "Logging in to Azure..."
-            az login --username ${{ secrets.AZURE_USERNAME }} --password ${{ secrets.AZURE_PASSWORD }} --verbose --no-config
-            echo "Login successful"
-            az account show --verbose
-            echo "Account info:"
-
-      - name: Deploy to Azure Web App
-        run: |
-          az webapp deployment update --resource-group Team13 --name Team13-Ebook --package ebook-1.0.jar --no-config
