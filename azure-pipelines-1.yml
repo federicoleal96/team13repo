@@ -9,4 +9,4 @@ steps:
   displayName: 'Azure CLI'
   inputs:
     targetType: 'inline'
-    script: 'az account show; az webapp deployment update --resource-group Team13 --name Team13-Ebook --package $(System.DefaultWorkingDirectory)/*.jar'
+    script: 'az login --username $(AZURE_USERNAME) --password $(AZURE_PASSWORD); az account show; az webapp deployment update --resource-group Team13 --name Team13-Ebook --package $(System.DefaultWorkingDirectory)/*.jar'
