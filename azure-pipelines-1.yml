@@ -2,22 +2,17 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  name: 'Default'
+
+variables:
+- group: Github_and_Azure_credentials
 
 steps:
-- task: DownloadGitHubArtifact@1
-  displayName: 'Download GitHub Artifact'
-  inputs:
-    githubToken: '$(githubToken)'
-    githubRepo: 'your-github-repo'
-    githubWorkflow: 'your-github-workflow'
-    artifactName: 'ebook-1.0.jar'
-
-- task: AzureCLI@2
+- task: PowerShell@2
   displayName: 'Azure CLI'
   inputs:
-    azureSubscription: 'your-azure-subscription-name'
+    targetType: 'inline'
     script: |
-      az login --service-principal --username ${{ secrets.AZURE_USERNAME }} --password ${{ secrets.AZURE_PASSWORD }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+      az login --username $(AZURE_USERNAME) --password $(AZURE_PASSWORD)
       az account show
-      az webapp deployment update --resource-group Team13 --name Team13-Ebook --package $(System.DefaultWorkingDirectory)/*.jar
+      az webapp deployment slot update --resource-group Team13 --name Team13-Ebook --slot production --package $(System.DefaultWorkingDirectory)/*.jar
