@@ -14,32 +14,10 @@ pool:
 jobs:
 - job: build
   steps:
-  - task: PowerShell@2
-    displayName: 'Install Java'
-    inputs:
-      targetType: 'filePath'
-      filePath: '.github/install_java.ps1'
-      arguments: '-sourcesDirectory $(build.sourcesdirectory)'
-  - task: PowerShell@2
-    displayName: 'Install Maven'
-    inputs:
-      targetType: 'filePath'
-      filePath: '.github/install_maven.ps1'
-      arguments: '-sourcesDirectory $(build.sourcesdirectory)'
-  - task: PowerShell@2
-    displayName: 'Maven Build'
-    inputs:
-      targetType: 'inline'
-      script: 'mvn clean package -X'
-  - task: CopyFiles@2
-    displayName: 'Copy JAR file to staging directory'
-    inputs:
-      Contents: '**/*.jar'
-      TargetFolder: '$(build.artifactstagingdirectory)'
   - task: AzureRmWebAppDeployment@4
     displayName: 'Azure App Service Deployment'
     inputs:
       ConnectionType: 'AzureRM'
       WebAppName: '$(webAppName)'
       ResourceGroupName: '$(resourceGroupName)'
-      Package: '$(build.artifactstagingdirectory)/*.jar'
+      Package: '$(System.DefaultWorkingDirectory)/*.jar'
