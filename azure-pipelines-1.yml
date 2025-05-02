@@ -9,6 +9,6 @@ steps:
   displayName: 'Azure CLI'
   inputs:
     azureSubscription: ''
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
+    scriptType: 'powershell'
+    scriptLocation: 'inline'
     inlineScript: 'az account show; az webapp deployment update --resource-group Team13 --name Team13-Ebook --package $(System.DefaultWorkingDirectory)/*.jar'
