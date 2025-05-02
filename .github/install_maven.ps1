@@ -1,5 +1,9 @@
+param (
+    [string]$sourcesDirectory
+)
+
 $downloadUrl = "https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.zip"
-$destinationPath = "$(build.sourcesdirectory)\Maven"
+$destinationPath = "$sourcesDirectory\Maven"
 
 # Create the Maven directory if it doesn't exist
 New-Item -ItemType Directory -Path $destinationPath -Force
