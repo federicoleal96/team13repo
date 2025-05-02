@@ -19,11 +19,12 @@ jobs:
     inputs:
       targetType: 'filePath'
       filePath: '.github/install_maven.ps1'
+      arguments: '-sourcesDirectory $(build.sourcesdirectory)'
   - task: PowerShell@2
     displayName: 'Maven Build'
     inputs:
       targetType: 'inline'
-      script: 'mvn clean package -X'
+      script: 'vn clean package -X'
   - task: CopyFiles@2
     displayName: 'Copy JAR file to staging directory'
     inputs:
