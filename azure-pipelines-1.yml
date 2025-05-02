@@ -13,8 +13,5 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      $username = $(AZURE_USERNAME)
-      $password = $(AZURE_PASSWORD)
-      az login --username $username --password $password
-      az account show
-      az webapp deployment slot update --resource-group Team13 --name Team13-Ebook --slot production --package $(System.DefaultWorkingDirectory)/*.jar
+      Write-Host "AZURE_USERNAME: $(AZURE_USERNAME)"
+      Write-Host "AZURE_PASSWORD: $(AZURE_PASSWORD)"
