@@ -10,6 +10,8 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      az login --username $($env:AZURE_USERNAME) --password $($env:AZURE_PASSWORD)
+      $username = $(Github_and_Azure_credentials.AZURE_USERNAME)
+      $password = $(Github_and_Azure_credentials.AZURE_PASSWORD)
+      az login --username $username --password $password
       az account show
       az webapp deployment slot update --resource-group Team13 --name Team13-Ebook --slot production --package $(System.DefaultWorkingDirectory)/*.jar
