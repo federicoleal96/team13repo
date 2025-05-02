@@ -9,7 +9,7 @@ $destinationPath = "$sourcesDirectory\Maven"
 New-Item -ItemType Directory -Path $destinationPath -Force
 
 # Download Maven
-Invoke-WebRequest -Uri $downloadUrl -OutFile "$destinationPath\apache-maven-3.8.6-bin.zip"
+Invoke-WebRequest -Uri "https://archive.apache.org/dist/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.zip" -OutFile "$destinationPath\apache-maven-3.8.6-bin.zip"
 
 # Extract Maven
 Expand-Archive -Path "$destinationPath\apache-maven-3.8.6-bin.zip" -DestinationPath "$destinationPath" -Force
