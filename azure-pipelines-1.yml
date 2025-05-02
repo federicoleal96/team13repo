@@ -13,6 +13,6 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      az login --username $(AZURE_USERNAME) --password $(AZURE_PASSWORD)
+      az login --service-principal --username $(AZURE_USERNAME) --password $(AZURE_PASSWORD) --tenant $(AZURE_TENANT_ID)
       az account show
-      az webapp deployment slot update --resource-group Team13 --name Team13-Ebook --slot production --package $(System.DefaultWorkingDirectory)/*.jar
+      az webapp update --resource-group Team13 --name Team13-Ebook --package $(System.DefaultWorkingDirectory)/*.jar
