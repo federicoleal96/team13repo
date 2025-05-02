@@ -2,21 +2,21 @@ param (
     [string]$sourcesDirectory
 )
 
-Write-Host "Installing Maven..."
-$downloadUrl = "https://archive.apache.org/dist/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.zip"
-$destinationPath = "$sourcesDirectory\Maven"
+Write-Host "Installing Java..."
+$javaDownloadUrl = "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.6+10/OpenJDK17U-jdk_x64_windows_hotspot_17.0.6_10.msi"
+$javaInstallerPath = "$sourcesDirectory\OpenJDK17U-jdk_x64_windows_hotspot_17.0.6_10.msi"
 
-Write-Host "Creating Maven directory..."
-New-Item -ItemType Directory -Path $destinationPath -Force
+Invoke-WebRequest -Uri $javaDownloadUrl -OutFile $javaInstallerPath
 
-Write-Host "Downloading Maven..."
-Invoke-WebRequest -Uri $downloadUrl -OutFile "$destinationPath\apache-maven-3.8.6-bin.zip"
-
-Write-Host "Extracting Maven..."
-Expand-Archive -Path "$destinationPath\apache-maven-3.8.6-bin.zip" -DestinationPath "$destinationPath" -Force
+Write-Host "Installing Java silently..."
+Start-Process -FilePath msiexec.exe -ArgumentList "/i $javaInstallerPath /qn" -Wait
 
 Write-Host "Setting environment variables..."
-$env:PATH += ";$destinationPath\apache-maven-3.8.6\bin"
-
-Write-Host "Verifying Maven installation..."
-mvn --version
+$javaHomePath = "C:\Program Files\AdoptOpenJDK\jdk-17.0.6+10"
+if (Test-Path $javaHomePath) {
+    [Environment]::SetEnvironmentVariable("JAVA_HOME", $javaHomePath, "Machine")
+    [Environment]::SetEnvironmentVariable("PATH", $env:PATH + ";$javaHomePath\bin", "Machine")
+    Write-Host "JAVA_HOME environment variable set to $javaHomePath"
+} else {
+    Write-Host "JAVA_HOME environment variable not set. Java installation failed."
+}
