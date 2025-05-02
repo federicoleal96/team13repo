@@ -5,10 +5,8 @@ pool:
   name: 'Default'
 
 steps:
-- task: AzureCLI@2
+- task: PowerShell@2
   displayName: 'Azure CLI'
   inputs:
-    azureSubscription: ''
-    scriptType: 'powershell'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'az account show; az webapp deployment update --resource-group Team13 --name Team13-Ebook --package $(System.DefaultWorkingDirectory)/*.jar'
+    targetType: 'inline'
+    script: 'az account show; az webapp deployment update --resource-group Team13 --name Team13-Ebook --package $(System.DefaultWorkingDirectory)/*.jar'
